@@ -45,5 +45,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/TransformExanple.dir/DependInfo.cmake"
+  "CMakeFiles/useGeometry.dir/DependInfo.cmake"
   "CMakeFiles/learn_eigen.dir/DependInfo.cmake"
   )

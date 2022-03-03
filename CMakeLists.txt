@@ -5,3 +5,7 @@ project(learn_eigen)
 include_directories("/usr/include/eigen3")
 
 add_executable(learn_eigen ch3/helloeigen.cpp)
+
+add_executable(useGeometry ch3/useGeometry.cpp)
+
+add_executable(TransformExanple ch3/coordinateTransform.cpp)

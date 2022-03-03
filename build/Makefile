@@ -111,6 +111,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named TransformExanple
+
+# Build rule for target.
+TransformExanple: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 TransformExanple
+.PHONY : TransformExanple
+
+# fast build rule for target.
+TransformExanple/fast:
+	$(MAKE) -f CMakeFiles/TransformExanple.dir/build.make CMakeFiles/TransformExanple.dir/build
+.PHONY : TransformExanple/fast
+
+#=============================================================================
+# Target rules for targets named useGeometry
+
+# Build rule for target.
+useGeometry: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 useGeometry
+.PHONY : useGeometry
+
+# fast build rule for target.
+useGeometry/fast:
+	$(MAKE) -f CMakeFiles/useGeometry.dir/build.make CMakeFiles/useGeometry.dir/build
+.PHONY : useGeometry/fast
+
+#=============================================================================
 # Target rules for targets named learn_eigen
 
 # Build rule for target.
@@ -122,6 +148,33 @@ learn_eigen: cmake_check_build_system
 learn_eigen/fast:
 	$(MAKE) -f CMakeFiles/learn_eigen.dir/build.make CMakeFiles/learn_eigen.dir/build
 .PHONY : learn_eigen/fast
+
+ch3/coordinateTransform.o: ch3/coordinateTransform.cpp.o
+
+.PHONY : ch3/coordinateTransform.o
+
+# target to build an object file
+ch3/coordinateTransform.cpp.o:
+	$(MAKE) -f CMakeFiles/TransformExanple.dir/build.make CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.o
+.PHONY : ch3/coordinateTransform.cpp.o
+
+ch3/coordinateTransform.i: ch3/coordinateTransform.cpp.i
+
+.PHONY : ch3/coordinateTransform.i
+
+# target to preprocess a source file
+ch3/coordinateTransform.cpp.i:
+	$(MAKE) -f CMakeFiles/TransformExanple.dir/build.make CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.i
+.PHONY : ch3/coordinateTransform.cpp.i
+
+ch3/coordinateTransform.s: ch3/coordinateTransform.cpp.s
+
+.PHONY : ch3/coordinateTransform.s
+
+# target to generate assembly for a file
+ch3/coordinateTransform.cpp.s:
+	$(MAKE) -f CMakeFiles/TransformExanple.dir/build.make CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.s
+.PHONY : ch3/coordinateTransform.cpp.s
 
 ch3/helloeigen.o: ch3/helloeigen.cpp.o
 
@@ -150,6 +203,33 @@ ch3/helloeigen.cpp.s:
 	$(MAKE) -f CMakeFiles/learn_eigen.dir/build.make CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.s
 .PHONY : ch3/helloeigen.cpp.s
 
+ch3/useGeometry.o: ch3/useGeometry.cpp.o
+
+.PHONY : ch3/useGeometry.o
+
+# target to build an object file
+ch3/useGeometry.cpp.o:
+	$(MAKE) -f CMakeFiles/useGeometry.dir/build.make CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.o
+.PHONY : ch3/useGeometry.cpp.o
+
+ch3/useGeometry.i: ch3/useGeometry.cpp.i
+
+.PHONY : ch3/useGeometry.i
+
+# target to preprocess a source file
+ch3/useGeometry.cpp.i:
+	$(MAKE) -f CMakeFiles/useGeometry.dir/build.make CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.i
+.PHONY : ch3/useGeometry.cpp.i
+
+ch3/useGeometry.s: ch3/useGeometry.cpp.s
+
+.PHONY : ch3/useGeometry.s
+
+# target to generate assembly for a file
+ch3/useGeometry.cpp.s:
+	$(MAKE) -f CMakeFiles/useGeometry.dir/build.make CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.s
+.PHONY : ch3/useGeometry.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -158,10 +238,18 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... TransformExanple"
+	@echo "... useGeometry"
 	@echo "... learn_eigen"
+	@echo "... ch3/coordinateTransform.o"
+	@echo "... ch3/coordinateTransform.i"
+	@echo "... ch3/coordinateTransform.s"
 	@echo "... ch3/helloeigen.o"
 	@echo "... ch3/helloeigen.i"
 	@echo "... ch3/helloeigen.s"
+	@echo "... ch3/useGeometry.o"
+	@echo "... ch3/useGeometry.i"
+	@echo "... ch3/useGeometry.s"
 .PHONY : help
 
 
