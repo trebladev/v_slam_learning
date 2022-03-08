@@ -60,15 +60,15 @@ include CMakeFiles/learn_eigen.dir/flags.make
 CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.o: CMakeFiles/learn_eigen.dir/flags.make
 CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.o: ../ch3/helloeigen.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xuan/slam14/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.o -c /home/xuan/slam14/ch3/helloeigen.cpp
+	/bin/x86_64-linux-gnu-g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.o -c /home/xuan/slam14/ch3/helloeigen.cpp
 
 CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xuan/slam14/ch3/helloeigen.cpp > CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.i
+	/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xuan/slam14/ch3/helloeigen.cpp > CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.i
 
 CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xuan/slam14/ch3/helloeigen.cpp -o CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.s
+	/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xuan/slam14/ch3/helloeigen.cpp -o CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.s
 
 # Object files for target learn_eigen
 learn_eigen_OBJECTS = \

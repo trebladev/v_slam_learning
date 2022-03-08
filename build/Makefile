@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named useSophus
+
+# Build rule for target.
+useSophus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 useSophus
+.PHONY : useSophus
+
+# fast build rule for target.
+useSophus/fast:
+	$(MAKE) -f CMakeFiles/useSophus.dir/build.make CMakeFiles/useSophus.dir/build
+.PHONY : useSophus/fast
+
+#=============================================================================
 # Target rules for targets named TransformExanple
 
 # Build rule for target.
@@ -230,6 +243,33 @@ ch3/useGeometry.cpp.s:
 	$(MAKE) -f CMakeFiles/useGeometry.dir/build.make CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.s
 .PHONY : ch3/useGeometry.cpp.s
 
+ch4/useSophus.o: ch4/useSophus.cpp.o
+
+.PHONY : ch4/useSophus.o
+
+# target to build an object file
+ch4/useSophus.cpp.o:
+	$(MAKE) -f CMakeFiles/useSophus.dir/build.make CMakeFiles/useSophus.dir/ch4/useSophus.cpp.o
+.PHONY : ch4/useSophus.cpp.o
+
+ch4/useSophus.i: ch4/useSophus.cpp.i
+
+.PHONY : ch4/useSophus.i
+
+# target to preprocess a source file
+ch4/useSophus.cpp.i:
+	$(MAKE) -f CMakeFiles/useSophus.dir/build.make CMakeFiles/useSophus.dir/ch4/useSophus.cpp.i
+.PHONY : ch4/useSophus.cpp.i
+
+ch4/useSophus.s: ch4/useSophus.cpp.s
+
+.PHONY : ch4/useSophus.s
+
+# target to generate assembly for a file
+ch4/useSophus.cpp.s:
+	$(MAKE) -f CMakeFiles/useSophus.dir/build.make CMakeFiles/useSophus.dir/ch4/useSophus.cpp.s
+.PHONY : ch4/useSophus.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -238,6 +278,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... useSophus"
 	@echo "... TransformExanple"
 	@echo "... useGeometry"
 	@echo "... learn_eigen"
@@ -250,6 +291,9 @@ help:
 	@echo "... ch3/useGeometry.o"
 	@echo "... ch3/useGeometry.i"
 	@echo "... ch3/useGeometry.s"
+	@echo "... ch4/useSophus.o"
+	@echo "... ch4/useSophus.i"
+	@echo "... ch4/useSophus.s"
 .PHONY : help
 
 

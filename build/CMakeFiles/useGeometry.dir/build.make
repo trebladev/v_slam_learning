@@ -60,15 +60,15 @@ include CMakeFiles/useGeometry.dir/flags.make
 CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.o: CMakeFiles/useGeometry.dir/flags.make
 CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.o: ../ch3/useGeometry.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xuan/slam14/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.o -c /home/xuan/slam14/ch3/useGeometry.cpp
+	/bin/x86_64-linux-gnu-g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.o -c /home/xuan/slam14/ch3/useGeometry.cpp
 
 CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xuan/slam14/ch3/useGeometry.cpp > CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.i
+	/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xuan/slam14/ch3/useGeometry.cpp > CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.i
 
 CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xuan/slam14/ch3/useGeometry.cpp -o CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.s
+	/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xuan/slam14/ch3/useGeometry.cpp -o CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.s
 
 # Object files for target useGeometry
 useGeometry_OBJECTS = \

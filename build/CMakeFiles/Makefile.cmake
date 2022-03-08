@@ -7,6 +7,9 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "/home/xuan/Sophus/build/SophusConfig.cmake"
+  "/home/xuan/Sophus/build/SophusConfigVersion.cmake"
+  "/home/xuan/Sophus/build/SophusTargets.cmake"
   "../CMakeLists.txt"
   "CMakeFiles/3.16.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
@@ -15,6 +18,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.16/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCommonLanguageInclude.cmake"
+  "/usr/share/cmake-3.16/Modules/CMakeFindDependencyMacro.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeGenericSystem.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeInitializeConfigs.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeLanguageInformation.cmake"
@@ -45,6 +49,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/useSophus.dir/DependInfo.cmake"
   "CMakeFiles/TransformExanple.dir/DependInfo.cmake"
   "CMakeFiles/useGeometry.dir/DependInfo.cmake"
   "CMakeFiles/learn_eigen.dir/DependInfo.cmake"

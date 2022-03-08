@@ -1,5 +1,6 @@
 /home/xuan/slam14/build/CMakeFiles/rebuild_cache.dir
 /home/xuan/slam14/build/CMakeFiles/edit_cache.dir
+/home/xuan/slam14/build/CMakeFiles/useSophus.dir
 /home/xuan/slam14/build/CMakeFiles/TransformExanple.dir
 /home/xuan/slam14/build/CMakeFiles/useGeometry.dir
 /home/xuan/slam14/build/CMakeFiles/learn_eigen.dir

@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/xuan/slam14/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DSOPHUS_USE_BASIC_LOGGING=1 -isystem /usr/include/eigen3 -isystem /home/xuan/Sophus  -g   -o CMakeFiles/useSophus.dir/ch4/useSophus.cpp.o -c /home/xuan/slam14/ch4/useSophus.cpp",
+  "file": "/home/xuan/slam14/ch4/useSophus.cpp"
+},
+{
+  "directory": "/home/xuan/slam14/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -I/usr/include/eigen3  -g   -o CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.o -c /home/xuan/slam14/ch3/coordinateTransform.cpp",
+  "file": "/home/xuan/slam14/ch3/coordinateTransform.cpp"
+},
+{
+  "directory": "/home/xuan/slam14/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -I/usr/include/eigen3  -g   -o CMakeFiles/useGeometry.dir/ch3/useGeometry.cpp.o -c /home/xuan/slam14/ch3/useGeometry.cpp",
+  "file": "/home/xuan/slam14/ch3/useGeometry.cpp"
+},
+{
+  "directory": "/home/xuan/slam14/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -I/usr/include/eigen3  -g   -o CMakeFiles/learn_eigen.dir/ch3/helloeigen.cpp.o -c /home/xuan/slam14/ch3/helloeigen.cpp",
+  "file": "/home/xuan/slam14/ch3/helloeigen.cpp"
+}
+]

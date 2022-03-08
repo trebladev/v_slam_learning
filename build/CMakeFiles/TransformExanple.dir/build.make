@@ -60,15 +60,15 @@ include CMakeFiles/TransformExanple.dir/flags.make
 CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.o: CMakeFiles/TransformExanple.dir/flags.make
 CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.o: ../ch3/coordinateTransform.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xuan/slam14/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.o -c /home/xuan/slam14/ch3/coordinateTransform.cpp
+	/bin/x86_64-linux-gnu-g++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.o -c /home/xuan/slam14/ch3/coordinateTransform.cpp
 
 CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xuan/slam14/ch3/coordinateTransform.cpp > CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.i
+	/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xuan/slam14/ch3/coordinateTransform.cpp > CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.i
 
 CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xuan/slam14/ch3/coordinateTransform.cpp -o CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.s
+	/bin/x86_64-linux-gnu-g++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xuan/slam14/ch3/coordinateTransform.cpp -o CMakeFiles/TransformExanple.dir/ch3/coordinateTransform.cpp.s
 
 # Object files for target TransformExanple
 TransformExanple_OBJECTS = \
