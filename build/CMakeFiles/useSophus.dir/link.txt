@@ -1,1 +1,1 @@
-/bin/x86_64-linux-gnu-g++-9  -g  -rdynamic CMakeFiles/useSophus.dir/ch4/useSophus.cpp.o  -o useSophus 
+/bin/x86_64-linux-gnu-g++-9  -std=c++11 -g  -rdynamic CMakeFiles/useSophus.dir/ch4/useSophus.cpp.o  -o useSophus 

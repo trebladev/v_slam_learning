@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named imageBasics
+
+# Build rule for target.
+imageBasics: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 imageBasics
+.PHONY : imageBasics
+
+# fast build rule for target.
+imageBasics/fast:
+	$(MAKE) -f CMakeFiles/imageBasics.dir/build.make CMakeFiles/imageBasics.dir/build
+.PHONY : imageBasics/fast
+
+#=============================================================================
 # Target rules for targets named useSophus
 
 # Build rule for target.
@@ -270,6 +283,33 @@ ch4/useSophus.cpp.s:
 	$(MAKE) -f CMakeFiles/useSophus.dir/build.make CMakeFiles/useSophus.dir/ch4/useSophus.cpp.s
 .PHONY : ch4/useSophus.cpp.s
 
+ch5/imageBasics.o: ch5/imageBasics.cpp.o
+
+.PHONY : ch5/imageBasics.o
+
+# target to build an object file
+ch5/imageBasics.cpp.o:
+	$(MAKE) -f CMakeFiles/imageBasics.dir/build.make CMakeFiles/imageBasics.dir/ch5/imageBasics.cpp.o
+.PHONY : ch5/imageBasics.cpp.o
+
+ch5/imageBasics.i: ch5/imageBasics.cpp.i
+
+.PHONY : ch5/imageBasics.i
+
+# target to preprocess a source file
+ch5/imageBasics.cpp.i:
+	$(MAKE) -f CMakeFiles/imageBasics.dir/build.make CMakeFiles/imageBasics.dir/ch5/imageBasics.cpp.i
+.PHONY : ch5/imageBasics.cpp.i
+
+ch5/imageBasics.s: ch5/imageBasics.cpp.s
+
+.PHONY : ch5/imageBasics.s
+
+# target to generate assembly for a file
+ch5/imageBasics.cpp.s:
+	$(MAKE) -f CMakeFiles/imageBasics.dir/build.make CMakeFiles/imageBasics.dir/ch5/imageBasics.cpp.s
+.PHONY : ch5/imageBasics.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -278,6 +318,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... imageBasics"
 	@echo "... useSophus"
 	@echo "... TransformExanple"
 	@echo "... useGeometry"
@@ -294,6 +335,9 @@ help:
 	@echo "... ch4/useSophus.o"
 	@echo "... ch4/useSophus.i"
 	@echo "... ch4/useSophus.s"
+	@echo "... ch5/imageBasics.o"
+	@echo "... ch5/imageBasics.i"
+	@echo "... ch5/imageBasics.s"
 .PHONY : help
 
 
