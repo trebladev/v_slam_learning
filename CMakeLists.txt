@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 2.8 )
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "-std=c++14")
 
 project(learn_eigen)
 
@@ -8,6 +8,8 @@ include_directories("/usr/include/eigen3")
 
 set(Sophus_DIR "/home/xuan/Sophus/build")
 find_package( Sophus REQUIRED)
+
+find_package(Pangolin REQUIRED)
 
 include_directories(${Sophus_INCLUDE_DIRS})
 
@@ -24,4 +26,9 @@ add_executable(useSophus ch4/useSophus.cpp)
 target_link_libraries(useSophus Sophus::Sophus)
 
 add_executable(imageBasics ch5/imageBasics.cpp)
+add_executable(undistortImage ch5/undistortImage.cpp)
+target_link_libraries(undistortImage ${OpenCV_LIBS})
 target_link_libraries(imageBasics ${OpenCV_LIBS})
+
+add_executable(stereoVision ch5/stereoVision.cpp)
+target_link_libraries(stereoVision ${OpenCV_LIBS} ${Pangolin_LIBRARIES})

@@ -11,7 +11,7 @@ int main(int argc,char **argv)
     cv::Mat image;
     image = cv::imread(argv[1]);
 
-    if (image.data = nullptr)
+    if (image.data == nullptr)
     {
         cerr<<"file"<<argv[1]<<"do not exist"<<endl;
         return 0;
@@ -34,12 +34,25 @@ int main(int argc,char **argv)
         for(size_t x=0;x<image.cols;x++)
         {
             unsigned char *data_ptr = &row_ptr[x*image.channels()];
-        }
-        for(int c=0; c !=image.channels();c++)
-        {
-            unsigned char data = data_ptr[c];
+        
+            for(int c=0; c !=image.channels();c++)
+                {
+                    unsigned char data = data_ptr[c];
+                    }
         }
     }
+    chrono::steady_clock::time_point t2 = chrono::steady_clock::now();
+    chrono::duration<double> time_used = chrono::duration_cast<chrono::duration<double>>(t2-t1);
+    cout<<"thougtout use time"<<time_used.count()<<"sec"<<endl;
 
+    cv::Mat image_another = image;
+    image_another(cv::Rect(0,0,100,100)).setTo(0);
+    cv::imshow("image",image);
+    cv::waitKey(0);
+
+    cv::Mat image_clone = image.clone();
+    image_clone(cv::Rect(0,0,100,100)).setTo(255);
+    cv::imshow("image",image_clone);
+    cv::waitKey(0);
     return 0;
 }

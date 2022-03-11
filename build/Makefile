@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named stereoVision
+
+# Build rule for target.
+stereoVision: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 stereoVision
+.PHONY : stereoVision
+
+# fast build rule for target.
+stereoVision/fast:
+	$(MAKE) -f CMakeFiles/stereoVision.dir/build.make CMakeFiles/stereoVision.dir/build
+.PHONY : stereoVision/fast
+
+#=============================================================================
 # Target rules for targets named imageBasics
 
 # Build rule for target.
@@ -148,6 +161,19 @@ TransformExanple: cmake_check_build_system
 TransformExanple/fast:
 	$(MAKE) -f CMakeFiles/TransformExanple.dir/build.make CMakeFiles/TransformExanple.dir/build
 .PHONY : TransformExanple/fast
+
+#=============================================================================
+# Target rules for targets named undistortImage
+
+# Build rule for target.
+undistortImage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 undistortImage
+.PHONY : undistortImage
+
+# fast build rule for target.
+undistortImage/fast:
+	$(MAKE) -f CMakeFiles/undistortImage.dir/build.make CMakeFiles/undistortImage.dir/build
+.PHONY : undistortImage/fast
 
 #=============================================================================
 # Target rules for targets named useGeometry
@@ -310,6 +336,60 @@ ch5/imageBasics.cpp.s:
 	$(MAKE) -f CMakeFiles/imageBasics.dir/build.make CMakeFiles/imageBasics.dir/ch5/imageBasics.cpp.s
 .PHONY : ch5/imageBasics.cpp.s
 
+ch5/stereoVision.o: ch5/stereoVision.cpp.o
+
+.PHONY : ch5/stereoVision.o
+
+# target to build an object file
+ch5/stereoVision.cpp.o:
+	$(MAKE) -f CMakeFiles/stereoVision.dir/build.make CMakeFiles/stereoVision.dir/ch5/stereoVision.cpp.o
+.PHONY : ch5/stereoVision.cpp.o
+
+ch5/stereoVision.i: ch5/stereoVision.cpp.i
+
+.PHONY : ch5/stereoVision.i
+
+# target to preprocess a source file
+ch5/stereoVision.cpp.i:
+	$(MAKE) -f CMakeFiles/stereoVision.dir/build.make CMakeFiles/stereoVision.dir/ch5/stereoVision.cpp.i
+.PHONY : ch5/stereoVision.cpp.i
+
+ch5/stereoVision.s: ch5/stereoVision.cpp.s
+
+.PHONY : ch5/stereoVision.s
+
+# target to generate assembly for a file
+ch5/stereoVision.cpp.s:
+	$(MAKE) -f CMakeFiles/stereoVision.dir/build.make CMakeFiles/stereoVision.dir/ch5/stereoVision.cpp.s
+.PHONY : ch5/stereoVision.cpp.s
+
+ch5/undistortImage.o: ch5/undistortImage.cpp.o
+
+.PHONY : ch5/undistortImage.o
+
+# target to build an object file
+ch5/undistortImage.cpp.o:
+	$(MAKE) -f CMakeFiles/undistortImage.dir/build.make CMakeFiles/undistortImage.dir/ch5/undistortImage.cpp.o
+.PHONY : ch5/undistortImage.cpp.o
+
+ch5/undistortImage.i: ch5/undistortImage.cpp.i
+
+.PHONY : ch5/undistortImage.i
+
+# target to preprocess a source file
+ch5/undistortImage.cpp.i:
+	$(MAKE) -f CMakeFiles/undistortImage.dir/build.make CMakeFiles/undistortImage.dir/ch5/undistortImage.cpp.i
+.PHONY : ch5/undistortImage.cpp.i
+
+ch5/undistortImage.s: ch5/undistortImage.cpp.s
+
+.PHONY : ch5/undistortImage.s
+
+# target to generate assembly for a file
+ch5/undistortImage.cpp.s:
+	$(MAKE) -f CMakeFiles/undistortImage.dir/build.make CMakeFiles/undistortImage.dir/ch5/undistortImage.cpp.s
+.PHONY : ch5/undistortImage.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -318,9 +398,11 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... stereoVision"
 	@echo "... imageBasics"
 	@echo "... useSophus"
 	@echo "... TransformExanple"
+	@echo "... undistortImage"
 	@echo "... useGeometry"
 	@echo "... learn_eigen"
 	@echo "... ch3/coordinateTransform.o"
@@ -338,6 +420,12 @@ help:
 	@echo "... ch5/imageBasics.o"
 	@echo "... ch5/imageBasics.i"
 	@echo "... ch5/imageBasics.s"
+	@echo "... ch5/stereoVision.o"
+	@echo "... ch5/stereoVision.i"
+	@echo "... ch5/stereoVision.s"
+	@echo "... ch5/undistortImage.o"
+	@echo "... ch5/undistortImage.i"
+	@echo "... ch5/undistortImage.s"
 .PHONY : help
 
 
