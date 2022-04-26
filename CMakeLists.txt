@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 2.8 )
+cmake_minimum_required( VERSION 3.17 )
 
 set(CMAKE_CXX_FLAGS "-std=c++14")
 
@@ -16,6 +16,9 @@ include_directories(${Sophus_INCLUDE_DIRS})
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+find_package(Ceres REQUIRED)
+include_directories(${Ceres_INCLUDE_DIRS})
+
 add_executable(learn_eigen ch3/helloeigen.cpp)
 
 add_executable(useGeometry ch3/useGeometry.cpp)
@@ -32,3 +35,6 @@ target_link_libraries(imageBasics ${OpenCV_LIBS})
 
 add_executable(stereoVision ch5/stereoVision.cpp)
 target_link_libraries(stereoVision ${OpenCV_LIBS} ${Pangolin_LIBRARIES})
+
+add_executable(gaussNewton ch6/gaussNewton.cpp)
+target_link_libraries(gaussNewton ${OpenCV_LIBS})
