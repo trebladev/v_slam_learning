@@ -1,7 +1,8 @@
 cmake_minimum_required( VERSION 3.17 )
 
-set(CMAKE_CXX_FLAGS "-std=c++14")
 
+add_definitions("-DENABLE_SSE")
+set(CMAKE_CXX_FLAGS "-std=c++17 -O2 ${SSE_FLAGS} -msse4")
 project(learn_eigen)
 
 include_directories("/usr/include/eigen3")
@@ -18,6 +19,8 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 find_package(Ceres REQUIRED)
 include_directories(${Ceres_INCLUDE_DIRS})
+
+include_directories(common)
 
 add_executable(learn_eigen ch3/helloeigen.cpp)
 
@@ -38,3 +41,12 @@ target_link_libraries(stereoVision ${OpenCV_LIBS} ${Pangolin_LIBRARIES})
 
 add_executable(gaussNewton ch6/gaussNewton.cpp)
 target_link_libraries(gaussNewton ${OpenCV_LIBS})
+
+add_executable(ceresCurveFitting ch6/ceresCurveFitting.cpp)
+target_link_libraries(ceresCurveFitting ${OpenCV_LIBS} ${CERES_LIBRARIES}) 
+
+add_executable(orb_cv ch7/orb_cv.cpp common/Timing.h)
+target_link_libraries(orb_cv ${OpenCV_LIBS})
+
+#add_executable(orb_self ch7/orb_self.cpp common/Timing.h)
+#target_link_libraries(orb_self ${OpenCV_LIBS})
