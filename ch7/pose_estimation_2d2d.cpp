@@ -29,15 +29,19 @@ void pose_estimation_2d2d(
 Point2d pixel2cam(const Point2d &p,const Mat &K);
 
 int main(int argc,char **argv){
+    //load image
     Mat img_1 = imread("../ch7/1.png",CV_LOAD_IMAGE_COLOR);
     Mat img_2 = imread("../ch7/2.png",CV_LOAD_IMAGE_COLOR);
     assert(img_1.data && img_2.data && "can not load images");
+
+    //find Fast Feature points andompute ORB description for each point then get matches
     vector<KeyPoint> keypoints_1,keypoints_2;
     vector<DMatch> matches;
     find_feature_matches(img_1,img_2,keypoints_1,keypoints_2,matches);
     cout<<"find all "<<matches.size()<<"match points"<<endl;
 
     Mat R,t;
+    //use Polar constraints to compute movement of camera(E,t)
     pose_estimation_2d2d(keypoints_1,keypoints_2,matches,R,t);
     Mat t_x =
             (Mat_<double>(3, 3) << 0, -t.at<double>(2, 0), t.at<double>(1, 0),
