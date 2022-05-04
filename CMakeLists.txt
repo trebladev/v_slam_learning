@@ -9,14 +9,16 @@ include_directories("/usr/include/eigen3")
 
 set(Sophus_DIR "/home/xuan/Sophus/build")
 find_package( Sophus REQUIRED)
-
+find_package(g2o REQUIRED)
+include_directories(${G2O_INCLUDE_DIRS})
 find_package(Pangolin REQUIRED)
 
-include_directories(${Sophus_INCLUDE_DIRS})
+include_directories(${Sophus_INCLUDE_DIRS} " usr/local/include/eigen3/")
 
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
-
+find_package(fmt REQUIRED)
+set(FMT_LIBRARIES fmt::fmt)
 find_package(Ceres REQUIRED)
 include_directories(${Ceres_INCLUDE_DIRS})
 
@@ -52,5 +54,8 @@ add_executable(2d2d ch7/pose_estimation_2d2d.cpp)
 target_link_libraries(2d2d ${OpenCV_LIBS})
 add_executable(triangulation ch7/triangulation.cpp)
 target_link_libraries(triangulation ${OpenCV_LIBS})
+
+add_executable(3d2d ch7/pose_estimation_3d2d.cpp)
+target_link_libraries(3d2d g2o_core g2o_stuff  ${OpenCV_LIBS} fmt::fmt)
 #add_executable(orb_self ch7/orb_self.cpp common/Timing.h)
 #target_link_libraries(orb_self ${OpenCV_LIBS})
