@@ -1,5 +1,5 @@
 cmake_minimum_required( VERSION 3.17 )
-
+set( CMAKE_BUILD_TYPE Release )
 
 add_definitions("-DENABLE_SSE")
 set(CMAKE_CXX_FLAGS "-std=c++17 -O2 ${SSE_FLAGS} -msse4")

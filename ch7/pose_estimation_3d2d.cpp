@@ -13,6 +13,7 @@
 #include "g2o/core/solver.h"
 #include "g2o/core/block_solver.h"
 #include "g2o/core/optimization_algorithm_gauss_newton.h"
+#include <g2o/solvers/dense/linear_solver_dense.h>
 #include "sophus/se3.hpp"
 #include "opencv2/imgcodecs/legacy/constants_c.h"
 
@@ -32,6 +33,13 @@ typedef vector<Eigen::Vector3d, Eigen::aligned_allocator<Eigen::Vector3d>> VecVe
 // 像素坐标转相机归一化坐标
 Point2d pixel2cam(const Point2d &p, const Mat &K);
 
+// BA by g2o
+void bundleAdjustmentG2O(
+        const VecVector3d &points_3d,
+        const VecVector2d &points_2d,
+        const Mat &K,
+        Sophus::SE3d &pose
+);
 // BA by gauss-newton
 void bundleAdjustmentGaussNewton(
         const VecVector3d &points_3d,
@@ -75,6 +83,11 @@ int main(int argc,char **argv)
     TIMER_START(gauss_newton);
     bundleAdjustmentGaussNewton(pts_3d_eigen,pts_2d_eigen,K,pose_gn);
     TIMER_END(gauss_newton);
+
+    Sophus::SE3d pose_g2o;
+    TIMER_START(PNPG2O);
+    bundleAdjustmentG2O(pts_3d_eigen,pts_2d_eigen,K,pose_g2o);
+    TIMER_END(PNPG2O);
     return 0;
 
 }
@@ -205,7 +218,7 @@ public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
 
     virtual void setToOriginImpl() override{
-        _estimate = Sophus::SE3d;
+        _estimate = Sophus::SE3d();
     }
 
     /// left multiplication on SE3
@@ -218,3 +231,93 @@ public:
     virtual bool read(istream &in) override {}
     virtual bool write(ostream &out) const override {}
 };
+
+///edges used in g2o ba
+class EdgeProjection : public g2o::BaseUnaryEdge<2,Eigen::Vector2d,VertexPose>{
+public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
+
+    EdgeProjection(const Eigen::Vector3d &pos,const Eigen::Matrix3d &K) : _pos3d(pos),_K(K) {}
+
+    virtual void computeError() override {
+        const VertexPose *v = static_cast<VertexPose *> (_vertices[0]);
+        Sophus::SE3d T = v->estimate();
+        Eigen::Vector3d pos_pixel = _K *(T*_pos3d);
+        pos_pixel /= pos_pixel[2];
+        _error = _measurement - pos_pixel.head<2>();
+    }
+
+    virtual void linearizeOplus() override{
+        const VertexPose *v = static_cast<VertexPose *> (_vertices[0]);
+        Sophus::SE3d T = v->estimate();
+        Eigen::Vector3d pos_cam = T*_pos3d;
+        double fx = _K(0, 0);
+        double fy = _K(1, 1);
+        double cx = _K(0, 2);
+        double cy = _K(1, 2);
+        double X = pos_cam[0];
+        double Y = pos_cam[1];
+        double Z = pos_cam[2];
+        double Z2 = Z * Z;
+        _jacobianOplusXi
+                << -fx / Z, 0, fx * X / Z2, fx * X * Y / Z2, -fx - fx * X * X / Z2, fx * Y / Z,
+                0, -fy / Z, fy * Y / (Z * Z), fy + fy * Y * Y / Z2, -fy * X * Y / Z2, -fy * X / Z;
+    }
+
+    virtual bool read(istream &in) override {}
+    virtual bool write(ostream &out) const override {}
+
+private:
+    Eigen::Vector3d _pos3d;
+    Eigen::Matrix3d _K;
+};
+
+void bundleAdjustmentG2O(
+        const VecVector3d &points_3d,
+        const VecVector2d &points_2d,
+        const Mat &K,
+        Sophus::SE3d &pose
+        ){
+    typedef g2o::BlockSolver<g2o::BlockSolverTraits<6,3>> BlockSolverType; /// ?
+    typedef g2o::LinearSolverDense<BlockSolverType::PoseMatrixType> LinearSolverType; // type of linear solver
+
+    auto solver = new g2o::OptimizationAlgorithmGaussNewton(
+            g2o::make_unique<BlockSolverType>(g2o::make_unique<LinearSolverType>())
+            );
+    g2o::SparseOptimizer optimizer;
+    optimizer.setAlgorithm(solver);
+    optimizer.setVerbose(true);
+
+    VertexPose *vertex_pose = new VertexPose();
+    vertex_pose->setId(0);
+    vertex_pose->setEstimate(Sophus::SE3d());
+    optimizer.addVertex(vertex_pose);
+
+    Eigen::Matrix3d K_eigen;
+    K_eigen <<
+            K.at<double>(0, 0), K.at<double>(0, 1), K.at<double>(0, 2),
+            K.at<double>(1, 0), K.at<double>(1, 1), K.at<double>(1, 2),
+            K.at<double>(2, 0), K.at<double>(2, 1), K.at<double>(2, 2);
+
+    int index = 1;
+    for(size_t i=0;i<points_2d.size();++i)
+    {
+        auto p2d = points_2d[i];
+        auto p3d = points_3d[i];
+        EdgeProjection *edge = new EdgeProjection(p3d,K_eigen);
+        edge->setId(index);
+        edge->setVertex(0,vertex_pose);
+        edge->setMeasurement(p2d);
+        edge->setInformation(Eigen::Matrix2d::Identity());
+        optimizer.addEdge(edge);
+        index++;
+    }
+
+    TIMER_START(G2O);
+    optimizer.setVerbose(true);
+    optimizer.initializeOptimization();
+    optimizer.optimize(10);
+    TIMER_END(G2O);
+    pose = vertex_pose->estimate();
+
+}
