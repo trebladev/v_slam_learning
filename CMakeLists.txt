@@ -1,5 +1,5 @@
 cmake_minimum_required( VERSION 3.17 )
-set( CMAKE_BUILD_TYPE Release )
+set( CMAKE_BUILD_TYPE Debug )
 
 add_definitions("-DENABLE_SSE")
 set(CMAKE_CXX_FLAGS "-std=c++17 -O2 ${SSE_FLAGS} -msse4")
@@ -55,7 +55,10 @@ target_link_libraries(2d2d ${OpenCV_LIBS})
 add_executable(triangulation ch7/triangulation.cpp)
 target_link_libraries(triangulation ${OpenCV_LIBS})
 
-add_executable(3d2d ch7/pose_estimation_3d2d.cpp)
-target_link_libraries(3d2d g2o_core g2o_stuff  ${OpenCV_LIBS} fmt::fmt)
+#add_executable(3d2d ch7/pose_estimation_3d2d.cpp)
+#target_link_libraries(3d2d g2o_core g2o_stuff  ${OpenCV_LIBS} fmt::fmt)
+
+add_executable(3d3d ch7/pose_estimation_3d3d.cpp)
+target_link_libraries(3d3d g2o_core g2o_stuff ${OpenCV_LIBS} fmt::fmt)
 #add_executable(orb_self ch7/orb_self.cpp common/Timing.h)
 #target_link_libraries(orb_self ${OpenCV_LIBS})
