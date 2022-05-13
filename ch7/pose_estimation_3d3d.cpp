@@ -40,28 +40,73 @@ void pose_estimation_3d3d(
 );
 
 void bundleAdjustment(
-        const vector<Point3f> &points_3d,
-        const vector<Point3f> &points_2d,
+        const vector<Point3f> &pts1,
+        const vector<Point3f> &pts2,
         Mat &R, Mat &t
 );
 
-int main(int argc,char* argv[])
-{
-    Mat img_1 = imread("../ch7/1.png",CV_LOAD_IMAGE_COLOR);
-    Mat img_2 = imread("../ch7/2.png",CV_LOAD_IMAGE_COLOR);
+class VertexPose : public g2o::BaseVertex<6,Sophus::SE3d> {
+public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
+
+    virtual void setToOriginImpl() override {
+        Eigen::Matrix<double,6,1> update_eigen;
+    }
+
+    virtual void oplusImpl(const double *update) override {
+        Eigen::Matrix<double,6,1> update_eigen;
+        update_eigen << update[0],update[1],update[2],update[3],update[4],update[5];
+        _estimate = Sophus::SE3d::exp(update_eigen) * _estimate;
+    }
+
+    virtual bool read(istream &in) override {}
+
+    virtual bool write(ostream &out) const override {}
+};
+
+class EdgeProjectXYZRGBDPoseOnly : public g2o::BaseUnaryEdge<3,Eigen::Vector3d,VertexPose> {
+public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
+
+    EdgeProjectXYZRGBDPoseOnly(const Eigen::Vector3d &point) : _point(point) {}
+
+    virtual void computeError() override {
+        const VertexPose *pose = static_cast<const VertexPose *> ( _vertices[0]);
+        _error = _measurement - pose->estimate() *_point;
+    }
+
+    virtual void linearizeOplus() override {
+        VertexPose *pose = static_cast<VertexPose *>(_vertices[0]);
+        Sophus::SE3d T = pose->estimate();
+        Eigen::Vector3d xyz_trans = T *_point;
+        _jacobianOplusXi.block<3,3>(0,0) = -Eigen::Matrix3d::Identity();
+        _jacobianOplusXi.block<3,3>(0,3) = Sophus::SO3d::hat(xyz_trans);
+    }
+
+    bool read(istream &in) {}
+
+    bool write(ostream &out) const {}
+
+protected:
+    Eigen::Vector3d _point;
+};
+
+int main(int argc,char* argv[]) {
+    Mat img_1 = imread("../ch7/1.png", CV_LOAD_IMAGE_COLOR);
+    Mat img_2 = imread("../ch7/2.png", CV_LOAD_IMAGE_COLOR);
     assert(img_1.data && img_2.data && "can not load images");
     // find Fast Feature points,compute ORB description of each point and get matches
-    vector<KeyPoint> keypoints_1,keypoints_2;
+    vector<KeyPoint> keypoints_1, keypoints_2;
     vector<DMatch> matches;
-    find_feature_matches(img_1,img_2,keypoints_1,keypoints_2,matches);
-    cout<<"find all "<<matches.size()<<"match points"<<endl;
+    find_feature_matches(img_1, img_2, keypoints_1, keypoints_2, matches);
+    cout << "find all " << matches.size() << "match points" << endl;
 
-    Mat depth1 = imread("../ch7/1_depth.png",CV_LOAD_IMAGE_UNCHANGED);
-    Mat depth2 = imread("../ch7/2_depth.png",CV_LOAD_IMAGE_UNCHANGED);
+    Mat depth1 = imread("../ch7/1_depth.png", CV_LOAD_IMAGE_UNCHANGED);
+    Mat depth2 = imread("../ch7/2_depth.png", CV_LOAD_IMAGE_UNCHANGED);
     Mat K = (Mat_<double>(3, 3) << 520.9, 0, 325.1, 0, 521.0, 249.7, 0, 0, 1);
-    vector<Point3f> pts1,pts2;
+    vector<Point3f> pts1, pts2;
 
-    for (DMatch m:matches) {
+    for (DMatch m: matches) {
         ushort d1 = depth1.ptr<unsigned short>(int(keypoints_1[m.queryIdx].pt.y))[int(keypoints_1[m.queryIdx].pt.x)];
         ushort d2 = depth2.ptr<unsigned short>(int(keypoints_2[m.trainIdx].pt.y))[int(keypoints_2[m.trainIdx].pt.x)];
         if (d1 == 0 || d2 == 0)   // bad depth
@@ -74,22 +119,34 @@ int main(int argc,char* argv[])
         pts2.push_back(Point3f(p2.x * dd2, p2.y * dd2, dd2));
     }
 
-    cout<<"3d-3d pairs"<<pts1.size()<<endl;
-    Mat R,t;
-    pose_estimation_3d3d(pts1,pts2,R,t);
+    cout << "3d-3d pairs" << pts1.size() << endl;
+    Mat R, t;
+    pose_estimation_3d3d(pts1, pts2, R, t);
     cout << "ICP via SVD results: " << endl;
     cout << "R = " << R << endl;
     cout << "t = " << t << endl;
     cout << "R_inv = " << R.t() << endl;
     cout << "t_inv = " << -R.t() * t << endl;
-    return 0;
+
+    bundleAdjustment(pts1, pts2, R, t);
+
+    // verify p1 = R * p2 + t
+    for (int i = 0; i < 5; i++) {
+        cout << "p1 = " << pts1[i] << endl;
+        cout << "p2 = " << pts2[i] << endl;
+        cout << "(R*p2+t) = " <<
+             R * (Mat_<double>(3, 1) << pts2[i].x, pts2[i].y, pts2[i].z) + t
+             << endl;
+        cout << endl;
+        return 0;
+    }
 }
-
-
-void find_feature_matches(const Mat &img_1, const Mat &img_2,
-                          std::vector<KeyPoint> &keypoints_1,
-                          std::vector<KeyPoint> &keypoints_2,
-                          std::vector<DMatch> &matches) {
+void find_feature_matches(
+            const Mat &img_1, const Mat &img_2,
+            std::vector<KeyPoint> &keypoints_1,
+            std::vector<KeyPoint> &keypoints_2,
+            std::vector<DMatch> &matches)
+{
     //-- 初始化
     Mat descriptors_1, descriptors_2;
     // used in OpenCV3
@@ -191,3 +248,54 @@ void pose_estimation_3d3d(const vector<Point3f> &pts1,
     t = (Mat_<double>(3, 1) << t_(0, 0), t_(1, 0), t_(2, 0));
 }
 
+void bundleAdjustment(
+        const vector<Point3f> &pts1,
+        const vector<Point3f> &pts2,
+        Mat &R, Mat &t
+){
+    typedef g2o::BlockSolverX  BlockSolverType;
+    typedef g2o::LinearSolverDense<BlockSolverType::PoseLandmarkMatrixType> LinearSolverType;
+
+    // method of gradient descent
+    auto solver = new g2o::OptimizationAlgorithmLevenberg(g2o::make_unique<BlockSolverType>(g2o::make_unique<LinearSolverType>()));
+    g2o::SparseOptimizer optimizer;
+    optimizer.setAlgorithm(solver);
+    optimizer.setVerbose(true);
+
+    VertexPose *pose = new VertexPose();
+    pose->setId(0);
+    pose->setEstimate(Sophus::SE3d());
+    optimizer.addVertex(pose);
+
+    // edges
+    for (size_t i=0;i<pts1.size();i++)
+    {
+        EdgeProjectXYZRGBDPoseOnly *edge = new EdgeProjectXYZRGBDPoseOnly(
+                Eigen::Vector3d(pts2[i].x,pts2[i].y,pts2[i].z)
+                );
+
+        edge->setVertex(0,pose);
+        edge->setMeasurement(Eigen::Vector3d(pts1[i].x,pts1[i].y,pts1[i].z));
+        edge->setInformation(Eigen::Matrix3d::Identity());
+        optimizer.addEdge(edge);
+    }
+
+    TIMER_START(g2o);
+    optimizer.initializeOptimization();
+    optimizer.optimize(10);
+    TIMER_END(g2o);
+
+    cout << endl << "after optimization:" << endl;
+    cout << "T=\n" << pose->estimate().matrix() << endl;
+
+    // convert to cv::Mat
+    Eigen::Matrix3d R_ = pose->estimate().rotationMatrix();
+    Eigen::Vector3d t_ = pose->estimate().translation();
+    R = (Mat_<double>(3, 3) <<
+                            R_(0, 0), R_(0, 1), R_(0, 2),
+            R_(1, 0), R_(1, 1), R_(1, 2),
+            R_(2, 0), R_(2, 1), R_(2, 2)
+    );
+    t = (Mat_<double>(3, 1) << t_(0, 0), t_(1, 0), t_(2, 0));
+
+}

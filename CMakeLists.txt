@@ -60,5 +60,8 @@ target_link_libraries(triangulation ${OpenCV_LIBS})
 
 add_executable(3d3d ch7/pose_estimation_3d3d.cpp)
 target_link_libraries(3d3d g2o_core g2o_stuff ${OpenCV_LIBS} fmt::fmt)
+
+add_executable(optical_flow ch8/optical_flow.cpp)
+target_link_libraries(optical_flow ${OpenCV_LIBS})
 #add_executable(orb_self ch7/orb_self.cpp common/Timing.h)
 #target_link_libraries(orb_self ${OpenCV_LIBS})
