@@ -63,5 +63,8 @@ target_link_libraries(3d3d g2o_core g2o_stuff ${OpenCV_LIBS} fmt::fmt)
 
 add_executable(optical_flow ch8/optical_flow.cpp)
 target_link_libraries(optical_flow ${OpenCV_LIBS})
+
+add_executable(direct_method ch8/direct_method.cpp)
+target_link_libraries(direct_method ${OpenCV_LIBS} ${Pangolin_LIBRARIES} fmt::fmt)
 #add_executable(orb_self ch7/orb_self.cpp common/Timing.h)
 #target_link_libraries(orb_self ${OpenCV_LIBS})
